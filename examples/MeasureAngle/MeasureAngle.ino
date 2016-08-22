@@ -30,6 +30,12 @@ void loop()
     Serial.print( F(" | Clean angle: ") );
     Serial.print( Sensor.getAngle() );
 
+    if ( Serial.read() == '0' )
+    {
+        Sensor.setZeroPosition();
+        Serial.print( F(" | Zero position set!") );
+    }
+
     Serial.println();
 
     delay( 50 );
