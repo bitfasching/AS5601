@@ -54,10 +54,18 @@ class AS5601
         // initialization
         AS5601()
         {
-            // host I2C bus as master
-            Wire.begin();
+            // host I2C bus as master in the default I2C channel
+            wireChannel = &Wire;
+            wireChannel->begin();
         }
 
+        // initialization with explicit I2C channel
+        AS5601(TwoWire *i2cChannel)
+        {
+            // host I2C bus as master in the passed channel
+            wireChannel = i2cChannel;
+            wireChannel->begin();
+        }
 
 
         /* :: Low-Level Access :: */
@@ -67,20 +75,20 @@ class AS5601
         unsigned char readRaw8( unsigned char registerAddress )
         {
             // send START for I2C frame to the AS5601
-            Wire.beginTransmission( this->address );
+            wireChannel->beginTransmission( this->address );
 
             // send register address
-            Wire.write( registerAddress );
+            wireChannel->write( registerAddress );
 
             // flush, but do not release bus (no STOP)
-            Wire.endTransmission( false );
+            wireChannel->endTransmission( false );
 
             // request one byte as response from the AS5601, release and wait
             // (casting is necessary due to similar declarations of .requestFrom)
-            Wire.requestFrom( (uint8_t) this->address, (uint8_t) 1, (uint8_t) true );
+            wireChannel->requestFrom( (uint8_t) this->address, (uint8_t) 1, (uint8_t) true );
 
             // return response
-            return Wire.read();
+            return wireChannel->read();
         }
 
         // low-level: read two bytes as 16-bit word from two 8-bit registers
@@ -99,14 +107,14 @@ class AS5601
         void writeRaw8( unsigned char registerAddress, unsigned char value )
         {
             // send START for I2C frame to the AS5601
-            Wire.beginTransmission( this->address );
+            wireChannel->beginTransmission( this->address );
 
             // send register address and value
-            Wire.write( registerAddress );
-            Wire.write( value );
+            wireChannel->write( registerAddress );
+            wireChannel->write( value );
 
             // flush and release (STOP)
-            Wire.endTransmission( true );
+            wireChannel->endTransmission( true );
         }
 
         // low-level: write 16-bit word as two bytes to two 8-bit registers
@@ -185,6 +193,10 @@ class AS5601
             // read and return two-byte clean angle
             return this->readRaw16( AS5601::WordRegister::ANGLE );
         }
+
+    private:
+
+        TwoWire *wireChannel;
 };
 
 
