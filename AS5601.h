@@ -181,7 +181,7 @@ class AS5601
 
             // find dual logarithm (2^power >= angleSteps)
             // (by comparing increasing powers of two with angleSteps)
-            while ( ( 1 << ++power ) < angleSteps );
+            while ( ( 1u << ++power ) < angleSteps );
 
             // send ABN setting command (-3 (2^3 = 8) shifts the powers 3…11 (for 8…2048) to 0…8)
             this->writeRaw8( AS5601::ByteRegister::ABN, power-3 );
