@@ -177,7 +177,7 @@ class AS5601
             char power = -1;
 
             // coerce angle steps to supported values (8, 16, 32, …, 2048)
-            angleSteps = min( max( angleSteps, 8 ), 2048 );
+            angleSteps = constrain(angleSteps, 8, 2048);
 
             // find dual logarithm (2^power >= angleSteps)
             // (by comparing increasing powers of two with angleSteps)
