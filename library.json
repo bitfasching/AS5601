@@ -1,0 +1,29 @@
+{
+  "name": "AS5601 Library for Arduino",
+  "version": "0.1.0",
+  "description": "A wrapper for driving the cheap but great magnetic rotary sensor AS5601 over I²C on an Arduino. The library aims to offer clean high-level access to the sensor's capabilities and to provide convenience functions for common tasks. The current implementation supports only a subset of the sensor's functionality, more functions may be added in future versions.",
+  "keywords": "AS5601, Encoder, Rotary, Osram , AMS, 12-Bit, Programmable, Contactless",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/bitfasching/AS5601.git"
+  },
+  "authors":
+  [
+    {
+      "name": "bitfasching ",
+      "url": "https://www.bitfasching.de"
+    },
+    {
+      "name": "George Zogopoulos-Papaliakos ",
+      "email": "tailwhipx4@gmail.com",
+      "maintainer": true
+    },
+    {
+      "name": "Yannik Stradmann"
+    }
+  ],
+  "license": "BSD-3-Clause",
+  "frameworks": "Arduino",
+  "platforms": "Arduino,STM32,ESP32"
+}
